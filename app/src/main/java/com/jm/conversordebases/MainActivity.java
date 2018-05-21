@@ -12,13 +12,14 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.jm.conversordebases.bases.ASCII;
 import com.jm.conversordebases.bases.Binary;
 import com.jm.conversordebases.bases.Decimal;
 import com.jm.conversordebases.bases.Hexadecimal;
 import com.jm.conversordebases.bases.Octal;
 
 public class MainActivity extends AppCompatActivity{
-    private EditText decimalEditText,binaryEditText,octalEditText,hexaEditText;
+    private EditText etDecimal,etBinary, etOctal, etHexa, etASCII;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +30,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void bindElements() {
-        decimalEditText = findViewById(R.id.et_decimal);
-        binaryEditText = findViewById(R.id.et_binary);
-        octalEditText = findViewById(R.id.et_octal);
-        hexaEditText = findViewById(R.id.et_hexa);
+        etDecimal = findViewById(R.id.et_decimal);
+        etBinary = findViewById(R.id.et_binary);
+        etOctal = findViewById(R.id.et_octal);
+        etHexa = findViewById(R.id.et_hexa);
+        etASCII = findViewById(R.id.et_ascii);
         setupTextWatchers();
     }
 
     private void setupTextWatchers(){
-        decimalEditText.addTextChangedListener(new TextWatcher() {
+        etDecimal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (decimalEditText.isFocused())
+                if (etDecimal.isFocused())
                     new Decimal(MainActivity.this, s.toString()).convert();
             }
 
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-        binaryEditText.addTextChangedListener(new TextWatcher() {
+        etBinary.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (binaryEditText.isFocused())
+                if (etBinary.isFocused())
                     new Binary(MainActivity.this, s.toString()).convert();
             }
 
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-        octalEditText.addTextChangedListener(new TextWatcher() {
+        etOctal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (octalEditText.isFocused())
+                if (etOctal.isFocused())
                     new Octal(MainActivity.this, s.toString()).convert();
             }
 
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-        hexaEditText.addTextChangedListener(new TextWatcher() {
+        etHexa.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -96,8 +98,25 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (hexaEditText.isFocused())
+                if (etHexa.isFocused())
                     new Hexadecimal(MainActivity.this, s.toString()).convert();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        etASCII.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (etASCII.isFocused())
+                    new ASCII(MainActivity.this, s.toString()).convert();
             }
 
             @Override
@@ -127,23 +146,26 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void clear() {
-        decimalEditText.setText("");
-        binaryEditText.setText("");
-        octalEditText.setText("");
-        hexaEditText.setText("");
+        etDecimal.setText("");
+        etBinary.setText("");
+        etOctal.setText("");
+        etHexa.setText("");
+        etASCII.setText("");
     }
 
     private void copy() {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = null;
-        if(decimalEditText.hasFocus()){
-            clip = ClipData.newPlainText("decimal", decimalEditText.getText().toString());
-        }else if(binaryEditText.hasFocus()){
-            clip = ClipData.newPlainText("binary", binaryEditText.getText().toString());
-        }else if(octalEditText.hasFocus()){
-            clip = ClipData.newPlainText("octal", octalEditText.getText().toString());
-        }else if(hexaEditText.hasFocus()){
-            clip = ClipData.newPlainText("hexa", hexaEditText.getText().toString());
+        if(etDecimal.hasFocus()){
+            clip = ClipData.newPlainText("decimal", etDecimal.getText().toString());
+        }else if(etBinary.hasFocus()){
+            clip = ClipData.newPlainText("binary", etBinary.getText().toString());
+        }else if(etOctal.hasFocus()){
+            clip = ClipData.newPlainText("octal", etOctal.getText().toString());
+        }else if(etHexa.hasFocus()){
+            clip = ClipData.newPlainText("hexa", etHexa.getText().toString());
+        }else if(etHexa.hasFocus()){
+            clip = ClipData.newPlainText("hexa", etASCII.getText().toString());
         }
         Toast.makeText(this, "Copiado para a área de transferência", Toast.LENGTH_SHORT).show();
 

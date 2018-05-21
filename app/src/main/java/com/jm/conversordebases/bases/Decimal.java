@@ -20,14 +20,13 @@ public class Decimal {
     }
 
     public void convert(){
-        EditText binary = activity.findViewById(R.id.et_binary);
-        binary.setText(toBinary());
+        ((EditText)activity.findViewById(R.id.et_binary)).setText(toBinary());
 
-        EditText octal = activity.findViewById(R.id.et_octal);
-        octal.setText(toOctal());
+        ((EditText)activity.findViewById(R.id.et_octal)).setText(toOctal());
 
-        EditText hexa = activity.findViewById(R.id.et_hexa);
-        hexa.setText(toHexadecimal());
+        ((EditText)activity.findViewById(R.id.et_hexa)).setText(toHexadecimal());
+
+        ((EditText)activity.findViewById(R.id.et_ascii)).setText(Converter.toASCII(decimal+""));
     }
 
     private String toBinary(){

@@ -24,6 +24,14 @@ abstract class Converter {
             return sum.toString().toUpperCase();
     }
 
+    String toASCII(){
+        return String.valueOf((char)Integer.parseInt(toDecimal()));
+    }
+
+    static String toASCII(String decimal){
+        return String.valueOf((char) Integer.parseInt(decimal));
+    }
+
     private String charToNumber(char c) {
         switch (c) {
             case 'A':

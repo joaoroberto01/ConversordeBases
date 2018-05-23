@@ -19,7 +19,7 @@ import com.jm.conversordebases.bases.Hexadecimal;
 import com.jm.conversordebases.bases.Octal;
 
 public class MainActivity extends AppCompatActivity{
-    private EditText etDecimal,etBinary, etOctal, etHexa, etASCII;
+    private EditText etDecimal, etBinary, etOctal, etHexa,etASCII;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,17 +156,16 @@ public class MainActivity extends AppCompatActivity{
     private void copy() {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = null;
-        if(etDecimal.hasFocus()){
+        if(etDecimal.hasFocus())
             clip = ClipData.newPlainText("decimal", etDecimal.getText().toString());
-        }else if(etBinary.hasFocus()){
+        else if(etBinary.hasFocus())
             clip = ClipData.newPlainText("binary", etBinary.getText().toString());
-        }else if(etOctal.hasFocus()){
+        else if(etOctal.hasFocus())
             clip = ClipData.newPlainText("octal", etOctal.getText().toString());
-        }else if(etHexa.hasFocus()){
+        else if(etHexa.hasFocus())
             clip = ClipData.newPlainText("hexa", etHexa.getText().toString());
-        }else if(etHexa.hasFocus()){
-            clip = ClipData.newPlainText("hexa", etASCII.getText().toString());
-        }
+        else if(etASCII.hasFocus())
+            clip = ClipData.newPlainText("ascii", etASCII.getText().toString());
         Toast.makeText(this, "Copiado para a área de transferência", Toast.LENGTH_SHORT).show();
 
         clipboard.setPrimaryClip(clip);

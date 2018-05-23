@@ -2,34 +2,78 @@ package com.jm.conversordebases.bases;
 
 abstract class Converter {
     private int base;
-    private String toConvert;
+    private String[] toConvert = {};
 
     Converter(int base,String toConvert){
         this.base = base;
-        this.toConvert = toConvert;
+        if(!toConvert.equals(""))
+            this.toConvert = toConvert.split(" ");
     }
 
     String toDecimal(){
-        toConvert = reverse(toConvert);
-        Long sum = 0L;
+        String result = "";
+        if(base != 10) {
+            Long sum = 0L;
 
-        for (int i = 0; i < toConvert.length(); i++) {
-            String character = charToNumber(toConvert.toUpperCase().charAt(i));
-            sum += (long) Math.pow(base,i) * Long.valueOf(character);
+            for (String convert : toConvert) {
+                convert = reverse(convert);
+                for (int i = 0; i < convert.length(); i++) {
+                    String character = charToNumber(convert.toUpperCase().charAt(i));
+
+                    sum += (long) Math.pow(base, i) * Long.valueOf(character);
+                }
+                result = result.concat(sum + " ");
+                sum = 0L;
+            }
+        }else {
+            for(String convert : toConvert){
+                result = result.concat(convert+" ");
+            }
         }
 
-        if(toConvert.length() < 1)
-            return "";
-        else
-            return sum.toString().toUpperCase();
+        return result.toUpperCase();
+    }
+
+    String toBinary(){
+        String binary = "";
+        String[] toConvert = toDecimal().split(" ");
+        for(String convert : toConvert){
+            if(!convert.equals(""))
+                binary = binary.concat(Long.toBinaryString(Long.valueOf(convert)))+" ";
+        }
+        return binary;
+    }
+
+    String toOctal(){
+        String octal = "";
+        String[] toConvert = toDecimal().split(" ");
+        for(String convert : toConvert){
+            if(!convert.equals(""))
+                octal = octal.concat(Long.toOctalString(Long.valueOf(convert)))+" ";
+        }
+        return octal;
+    }
+
+    String toHexadecimal(){
+        String hexa = "";
+        String[] toConvert = toDecimal().split(" ");
+        for(String convert : toConvert){
+            if(!convert.equals(""))
+                hexa = hexa.concat(Long.toHexString(Long.valueOf(convert)).toUpperCase())+" ";
+        }
+        return hexa;
     }
 
     String toASCII(){
-        return String.valueOf((char)Integer.parseInt(toDecimal()));
-    }
-
-    static String toASCII(String decimal){
-        return String.valueOf((char) Integer.parseInt(decimal));
+        String decimal = "";
+        String[] toConvert = toDecimal().split(" ");
+        for (String convert: toConvert) {
+            if(!convert.equals("")) {
+                long value = Long.valueOf(convert);
+                decimal = decimal.concat(String.valueOf((char) value) + " ");
+            }
+        }
+        return decimal;
     }
 
     private String charToNumber(char c) {

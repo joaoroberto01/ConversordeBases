@@ -14,22 +14,12 @@ public class Binary extends Converter{
     }
 
     public void convert(){
-        EditText decimal = activity.findViewById(R.id.et_decimal);
-        decimal.setText(toDecimal());
+        ((EditText) activity.findViewById(R.id.et_decimal)).setText(toDecimal());
 
-        EditText octal = activity.findViewById(R.id.et_octal);
-        octal.setText(toOctal());
+        ((EditText) activity.findViewById(R.id.et_octal)).setText(toOctal());
 
-        EditText hexa = activity.findViewById(R.id.et_hexa);
-        hexa.setText(toHexadecimal());
+        ((EditText) activity.findViewById(R.id.et_hexa)).setText(toHexadecimal());
 
-    }
-
-    private String toOctal(){
-        return toDecimal().length() > 0 ? Long.toOctalString(Long.valueOf(toDecimal())) : toDecimal();
-    }
-
-    private String toHexadecimal(){
-        return toDecimal().length() > 0 ? Long.toHexString(Long.valueOf(toDecimal())) : toDecimal();
+        ((EditText) activity.findViewById(R.id.et_ascii)).setText(toASCII());
     }
 }

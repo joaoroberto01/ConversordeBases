@@ -15,12 +15,20 @@ public class ASCII {
     }
 
     public void convert(){
-        String decimal = "";
-        for (int i = 0; i < text.length() ; i++) {
-            int ascii = (int) text.charAt(i);
-            decimal = decimal.concat(ascii+"");
+        String decimalString = "";
+        for (int i = 0; i < text.length(); i++) {
+            long decimal = (long) text.charAt(i);
+            decimalString = decimalString.concat(decimal+" ");
         }
-        new Decimal(activity,decimal).convert();
-        ((EditText) activity.findViewById(R.id.et_decimal)).setText(decimal);
+
+        Decimal dec = new Decimal(activity,decimalString);
+
+        ((EditText) activity.findViewById(R.id.et_decimal)).setText(decimalString);
+
+        ((EditText) activity.findViewById(R.id.et_binary)).setText(dec.toBinary());
+
+        ((EditText) activity.findViewById(R.id.et_octal)).setText(dec.toOctal());
+
+        ((EditText) activity.findViewById(R.id.et_hexa)).setText(dec.toHexadecimal());
     }
 }
